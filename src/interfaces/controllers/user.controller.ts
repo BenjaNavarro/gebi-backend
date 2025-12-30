@@ -3,7 +3,7 @@ import { _Request, _Response } from "../../infrastructure/web/ExpressServer.ts";
 
 export class UserController {
   async list(req: _Request, res: _Response) {
-    const { q } = req.query;
+    const { q, page = "1", limit = "10" } = req.query;
 
     const filter =
       typeof q === "string" && q.trim().length > 0
@@ -14,31 +14,47 @@ export class UserController {
               { rut: new RegExp(q, "i") },
               { nombres: new RegExp(q, "i") },
               { apaterno: new RegExp(q, "i") },
+              { amaterno: new RegExp(q, "i") },
             ],
           }
         : {};
 
-    const users = await UserModel.find(filter)
-      .populate("perfil")
-      .populate("biblioteca")
-      .sort({ createdAt: -1 })
-      .lean();
+    const options = {
+      page: Number(page) || 1,
+      limit: Number(limit) || 10,
+      sort: { createdAt: -1 },
+      lean: true,
+      populate: [
+        { path: "perfil" },
+        { path: "biblioteca" },
+      ],
+    };
 
-    res.json(users);
+    const result = await UserModel.paginate(filter, options);
+
+    res.json(result);
   }
 
   async getById(req: _Request, res: _Response) {
     const { id } = req.params;
 
-    const user = await UserModel.findById(id).populate("perfil").populate("biblioteca").lean();
-    if (!user) return res.status(404).json({ message: "User not found" });
+    const user = await UserModel.findById(id)
+      .populate("perfil")
+      .populate("biblioteca")
+      .lean();
 
+    if (!user) return res.status(404).json({ message: "User not found" });
     res.json(user);
   }
 
   async create(req: _Request, res: _Response) {
     const created = await UserModel.create(req.body);
-    const user = await UserModel.findById(created._id).populate("perfil").populate("biblioteca").lean();
+
+    const user = await UserModel.findById(created._id)
+      .populate("perfil")
+      .populate("biblioteca")
+      .lean();
+
     res.status(201).json(user);
   }
 

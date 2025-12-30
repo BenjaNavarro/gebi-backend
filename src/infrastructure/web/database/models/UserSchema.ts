@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import { Schema, model, type InferSchemaType, type HydratedDocument } from 'mongoose';
-//eslint-disable-next-line @typescript-eslint/no-unused-vars
-import _paginate from 'mongoose-paginate-v2';
+import paginate from 'mongoose-paginate-v2';
 
 export const UserSchema = new Schema({
     idUsuario: { type: String, required: true, unique: true },
@@ -17,6 +16,8 @@ export const UserSchema = new Schema({
 {
     timestamps: true,
 });
+
+UserSchema.plugin(paginate);
 
 export type User = InferSchemaType<typeof UserSchema>;
 export type UserDoc = HydratedDocument<User>;
