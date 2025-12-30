@@ -1,9 +1,10 @@
-import { AuthorModel } from "../../infrastructure/web/database/models/AuthorSchema.ts";
+import { PaginateResult } from "mongoose";
+import { Author, AuthorModel } from "../../infrastructure/web/database/models/AuthorSchema.ts";
 import { _Request, _Response } from "../../infrastructure/web/ExpressServer.ts";
 
 export class AuthorController {
   async list(req: _Request, res: _Response) {
-    const { q, estado, afiliacionUC, genero, uaCod } = req.query;
+    const { q, estado, afiliacionUC, genero, uaCod, page, limit } = req.query;
 
     const filter: Record<string, unknown> = {};
 
@@ -13,7 +14,6 @@ export class AuthorController {
     if (typeof genero === "string" && (genero === "male" || genero === "female")) filter.genero = genero;
     if (typeof uaCod === "string" && uaCod.trim()) filter.uaCod = uaCod.trim();
 
-    // búsqueda libre opcional
     if (typeof q === "string" && q.trim()) {
       const term = q.trim();
       const rx = new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i");
@@ -33,11 +33,18 @@ export class AuthorController {
       ];
     }
 
-    const authors = await AuthorModel.find(filter)
-      .sort({ apaterno: 1, amaterno: 1, nombres: 1 })
-      .lean();
+    const pageNum = typeof page === "string" ? Math.max(parseInt(page, 10) || 1, 1) : 1;
+    const limitNum = typeof limit === "string" ? Math.min(Math.max(parseInt(limit, 10) || 10, 1), 100) : 10;
 
-    res.json(authors);
+    const result: PaginateResult<Author> = await AuthorModel.paginate(filter, {
+      page: pageNum,
+      limit: limitNum,
+      sort: { apaterno: 1, amaterno: 1, nombres: 1 },
+      lean: true,
+      leanWithId: true,
+    });
+
+    res.json(result);
   }
 
   async getById(req: _Request, res: _Response) {
@@ -47,7 +54,7 @@ export class AuthorController {
   }
 
   async create(req: _Request, res: _Response) {
-    // opcional: construir nombreCompleto si no viene
+    
     const body = { ...req.body };
     if (!body.nombreCompleto) {
       const parts = [body.nombres, body.apaterno, body.amaterno].filter(Boolean);

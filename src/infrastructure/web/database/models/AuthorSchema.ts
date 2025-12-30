@@ -1,5 +1,5 @@
 import mongoose, { Schema, model, type InferSchemaType, type HydratedDocument } from 'mongoose';
-import _pagintate from 'mongoose-paginate-v2';
+import paginate from 'mongoose-paginate-v2';
 
 export const AuthorSchema = new Schema({
     idNameICYT: { type: String, required: true, unique: false },
@@ -32,6 +32,8 @@ export const AuthorSchema = new Schema({
 {
     timestamps: true,
 });
+
+AuthorSchema.plugin(paginate);
 
 export type Author = InferSchemaType<typeof AuthorSchema>;
 export type AuthorDoc = HydratedDocument<Author>;
