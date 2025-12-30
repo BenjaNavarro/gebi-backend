@@ -9,6 +9,7 @@
     "@types/express": "npm:@types/express@^5",
     "mongoose": "npm:mongoose@^8.0.0",
     "mongodb": "npm:mongodb@^6.0.0",
+    "mongoose-paginate-v2": "npm:mongoose-paginate-v2@^1.9.1",
     "morgan": "npm:morgan@^1.10.1",
     "ts-node": "npm:ts-node@^10.9.2"
   }
