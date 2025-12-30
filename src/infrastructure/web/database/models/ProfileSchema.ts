@@ -8,5 +8,6 @@ export const ProfileSchema = new Schema({
 {
     timestamps: true,
 });
+
 export type Profile = InferSchemaType<typeof ProfileSchema>;
-export const ProfileModel = model<Profile>('Perfil', ProfileSchema);
+export const ProfileModel = model<Profile>('Profiles', ProfileSchema);

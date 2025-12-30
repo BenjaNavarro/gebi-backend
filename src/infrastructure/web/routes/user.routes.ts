@@ -1,4 +1,3 @@
-// src/infrastructure/web/routes/user.routes.ts
 import { Router } from "express";
 import { UserController } from "../../../interfaces/controllers/UserController.ts";
 import { _Request, _Response } from "../ExpressServer.ts";
@@ -12,6 +11,6 @@ export function buildUserRouter(): Router {
   router.post("/", (req: _Request, res: _Response) => controller.create(req, res));
   router.put("/:id", (req: _Request, res: _Response) => controller.update(req, res));
   router.delete("/:id", (req: _Request, res: _Response) => controller.remove(req, res));
-  
+
   return router;
 }
