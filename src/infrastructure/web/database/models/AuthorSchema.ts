@@ -34,4 +34,4 @@ export const AuthorSchema = new Schema({
 
 export type Author = InferSchemaType<typeof AuthorSchema>;
 export type AuthorDoc = HydratedDocument<Author>;
-export const AuthorModel = mongoose.models.Author ?? model<Author>("Author", AuthorSchema);
+export const AuthorModel = model<Author>("Author", AuthorSchema);
