@@ -1,4 +1,4 @@
-import { Schema } from "mongoose";
+import { Schema, model, type InferSchemaType, type HydratedDocument } from 'mongoose';
 
 export const IndicatorSchema = new Schema({
     nombre: { type: String, required: true, unique: true },
@@ -8,3 +8,7 @@ export const IndicatorSchema = new Schema({
 },{
     timestamps: true,
 });
+
+export type Indicator = InferSchemaType<typeof IndicatorSchema>;
+export type IndicatorDoc = HydratedDocument<Indicator>;
+export const IndicatorModel = model<Indicator>("Indicator", IndicatorSchema);

@@ -1,4 +1,4 @@
-import { Schema } from "mongoose";
+import { Schema, model, type InferSchemaType, type HydratedDocument } from 'mongoose';
 
 export const ClientUnitSchema = new Schema(
     {
@@ -8,3 +8,7 @@ export const ClientUnitSchema = new Schema(
     },
     { timestamps: true },
 );
+
+export type ClientUnit = InferSchemaType<typeof ClientUnitSchema>;
+export type ClientUnitDoc = HydratedDocument<ClientUnit>;
+export const ClientUnitModel = model<ClientUnit>("ClientUnit", ClientUnitSchema);

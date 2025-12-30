@@ -1,4 +1,4 @@
-import { Schema } from 'mongoose';
+import { Schema, model, type InferSchemaType, type HydratedDocument } from 'mongoose';
 
 export const SourceSchema = new Schema({
     nombre: { type: String, required: true, unique: true },
@@ -7,3 +7,7 @@ export const SourceSchema = new Schema({
 },{
     timestamps: true,
 });
+
+export type Source = InferSchemaType<typeof SourceSchema>;
+export type SourceDoc = HydratedDocument<Source>;
+export const SourceModel = model<Source>('Sources', SourceSchema);

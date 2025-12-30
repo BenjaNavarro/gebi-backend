@@ -1,4 +1,4 @@
-import { Schema, model, type InferSchemaType } from 'mongoose';
+import { Schema, model, type InferSchemaType, type HydratedDocument } from 'mongoose';
 
 export const ProfileSchema = new Schema({
     nombre: { type: String, required: true, unique: true },
@@ -10,4 +10,5 @@ export const ProfileSchema = new Schema({
 });
 
 export type Profile = InferSchemaType<typeof ProfileSchema>;
+export type ProfileDoc = HydratedDocument<Profile>;
 export const ProfileModel = model<Profile>('Profiles', ProfileSchema);
