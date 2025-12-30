@@ -1,9 +1,7 @@
 import { Schema } from 'mongoose';
 
 export const AuthorSchema = new Schema({
-    _id: { type: Schema.Types.ObjectId, auto: true },
-    idAutor: { type: Number, required: true, unique: true },
-    idNameICYT: { type: String, required: true, unique: true },
+    idNameICYT: { type: String, required: true, unique: false },
     idNameICYTAnterior: { type: String, required: false },
     codPers: { type: Number, required: true },
     rut: { type: String, required: true },
@@ -12,7 +10,7 @@ export const AuthorSchema = new Schema({
     amaterno: { type: String, required: false },
     nombreCompleto: { type: String, required: false },
     nombrePreferido: { type: String, required: false },
-    genero: { type: String, required: false },
+    genero: { type: String, enum: ["male", "female"], required: false },
     categoriaAcademica: { type: String, required: false },
     uaCod: { type: String, required: false },
     unidadAcademica: { type: String, required: false },
