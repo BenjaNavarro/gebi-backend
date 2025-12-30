@@ -51,7 +51,7 @@ export class ClientController {
 
     async remove(req: _Request, res: _Response) {
         const { id } = req.params;
-        const deletedClientUnit = await Client
+        const deletedClientUnit = await ClientUnitModel
             .findByIdAndDelete(id)
             .lean();
         if (!deletedClientUnit) return res.status(404).json({ message: "Client Unit not found" });

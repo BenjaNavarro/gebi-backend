@@ -1,5 +1,5 @@
-import { SourceModel } from "../infrastructure/web/database/models/SourceSchema.js";
-import { _Request, _Response } from "../infrastructure/web/ExpressServer.js";
+import { SourceModel } from "../../infrastructure/web/database/models/SourceSchema.ts";
+import { _Request, _Response } from "../../infrastructure/web/ExpressServer.ts";
 
 export class SourceController {
     async list(req: _Request, res: _Response) {
@@ -13,7 +13,7 @@ export class SourceController {
             .lean();
         res.json(sources);
     }
-    
+
     async getById(req: _Request, res: _Response) {
         const { id } = req.params;
         const source = await SourceModel.findById(id).lean();
