@@ -1,6 +1,5 @@
-// src/infrastructure/web/routes/project.routes.ts
 import { Router } from "express";
-import { ProjectController } from "../../../interfaces/controllers/ProjectController.ts";
+import { ProjectController } from "../../../interfaces/controllers/project.controller.ts";
 import { _Request, _Response } from "../ExpressServer.ts";
 
 export function buildProjectRouter(): Router {

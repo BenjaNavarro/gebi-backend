@@ -1,5 +1,4 @@
 import { Schema, model, type InferSchemaType, type HydratedDocument } from 'mongoose';
-// import { Project } from "../../../../domain/entities/Project.ts";
 
 export const ProjectSchema = new Schema(
   {
@@ -64,7 +63,7 @@ export const ProjectSchema = new Schema(
   },
   {
     timestamps: true,
-    collection: 'icyt_proyecto',
+    // collection: 'icyt_proyecto',
   },
 );
 
