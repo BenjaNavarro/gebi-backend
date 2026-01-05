@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "dev": "deno run --watch --allow-net --allow-read --allow-env main.ts"
+    "dev": "deno run --watch --allow-net --allow-read --allow-env --env-file main.ts"
   },
   "imports": {
     "@std/assert": "jsr:@std/assert@1",
@@ -12,5 +12,9 @@
     "mongoose-paginate-v2": "npm:mongoose-paginate-v2@^1.9.1",
     "morgan": "npm:morgan@^1.10.1",
     "ts-node": "npm:ts-node@^10.9.2"
-  }
+  },
+  "exclude": [
+    "node_modules",
+    ".git"
+  ]
 }

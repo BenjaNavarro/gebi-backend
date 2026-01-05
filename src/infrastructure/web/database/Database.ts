@@ -16,7 +16,6 @@ import { ClientUnitSchema } from "./models/ClientUnitSchema.ts";
 const MONGO_URI = Deno.env.get("MONGO_URI") ?? "mongodb://localhost:27017/icyt";
 
 function registerModel<T = unknown>(name: string, schema: Schema): Model<T> {
-  // Si ya existe, reutiliza. Si no, registra.
   return mongoose.models[name] ?? mongoose.model<T>(name, schema);
 }
 
