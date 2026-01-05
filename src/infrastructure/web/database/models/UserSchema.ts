@@ -10,8 +10,10 @@ export const UserSchema = new Schema({
     correo: { type: String, required: true, unique: true },
     estado: { type: Boolean, required: true },
     rut: { type: String, required: true, unique: true },
-    perfil: { type: Schema.Types.ObjectId, ref: 'Perfil', required: true },
-    biblioteca: { type: Schema.Types.ObjectId, ref: 'Biblioteca', required: false }
+    perfil: { type: Schema.Types.ObjectId, ref: 'Profile', required: true },
+    perfil_name: { type: String, required: false },
+    biblioteca: { type: Schema.Types.ObjectId, ref: 'Library', required: false },
+    biblioteca_name: { type: String, required: false },
 },
 {
     timestamps: true,

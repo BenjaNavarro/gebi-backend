@@ -1,4 +1,3 @@
-// src/infrastructure/web/database/Database.ts
 import mongoose, { type Model, type Schema } from "mongoose";
 
 import { UserSchema } from "./models/UserSchema.ts";
@@ -21,9 +20,7 @@ function registerModel<T = unknown>(name: string, schema: Schema): Model<T> {
 
 export async function connectDB(): Promise<void> {
   try {
-    // Conexión idempotente
     if (mongoose.connection.readyState === 1) {
-      // 1 = connected
       return;
     }
 

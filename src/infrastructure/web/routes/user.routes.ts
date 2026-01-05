@@ -11,6 +11,7 @@ export function buildUserRouter(): Router {
   router.post("/", (req: _Request, res: _Response) => controller.create(req, res));
   router.put("/:id", (req: _Request, res: _Response) => controller.update(req, res));
   router.delete("/:id", (req: _Request, res: _Response) => controller.remove(req, res));
+  router.get("/migrate_profiles", (req: _Request, res: _Response) => controller.migrateProfiles(req, res));
 
   return router;
 }

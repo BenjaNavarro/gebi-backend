@@ -78,4 +78,16 @@ export class UserController {
 
     res.status(204).send();
   }
+
+  async migrateProfiles(req: _Request, res: _Response) {
+    const users = await UserModel.find().lean();
+
+    for (const user of users) {
+
+      // if (typeof user.perfil === "string") {
+      //   const profileId = user.perfil;
+      //   await UserModel.findByIdAndUpdate(user._id, { perfil: profileId });
+      // }
+    }
+  }
 }
